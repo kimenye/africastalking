@@ -2,7 +2,8 @@ Ruby API for connecting to AfricasTalking Gateway
 =================================================
 Based on:
     1. https://api.africastalking.com/tutorials/index/phpget
-    2. https://api.africastalking.com/tutorials/index/viewphpsource
+    2. https://api.africastalking.com/tutorials/index/phppost
+    3. https://api.africastalking.com/tutorials/index/viewphpsource
 
 Requires the following gems:
     1. curb
@@ -18,4 +19,5 @@ Receiving SMS
 valid_api = AfricasTalkingGateway.new(valid_username, valid_api_key)
 messages = valid_api.fetch_messages(0)
 
-Look at the spec file for more examples
+Look at the spec file for more examples of how to read the responses. You need to include your valid username and
+api key for the tests to run successfuly.
