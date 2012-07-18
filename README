@@ -1,0 +1,8 @@
+Ruby API for connecting to AfricasTalking Gateway
+=================================================
+Based on:
+    1. https://api.africastalking.com/tutorials/index/phpget
+    2. https://api.africastalking.com/tutorials/index/viewphpsource
+
+Requires the following gems:
+    1. curb
