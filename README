@@ -6,3 +6,16 @@ Based on:
 
 Requires the following gems:
     1. curb
+
+Sending SMS
+===========
+
+valid_api = AfricasTalkingGateway.new(valid_username, valid_api_key)
+status = valid_api.send_message("+2547771234567,+2547771234568,+2547771234569", "Hello world")
+
+Receiving SMS
+=============
+valid_api = AfricasTalkingGateway.new(valid_username, valid_api_key)
+messages = valid_api.fetch_messages(0)
+
+Look at the spec file for more examples

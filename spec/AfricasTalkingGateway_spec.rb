@@ -3,11 +3,24 @@ require_relative 'spec_helper'
 
 describe "Africas Talking Gateway Api" do
 
-  valid_api_key = "4f116c64a3087ae6d302b6961279fa46c7e1f2640a5a14a040d1303b2d98e560"
-  valid_username = "kimenye"
+  valid_api_key = "<Enter your api key here>"
+  valid_username = "<Enter your username here>"
 
   invalid_api_key = "invalid key"
   invalid_username = "invalid username"
+
+  send_response = {
+      :SMSMessageData => {
+          :Message => "Sent to 1\/1 Total Cost: KES 1.50",
+          :Recipients => [
+              {
+                  :number => "2537655332",
+                  :status => "Success",
+                  :cost => "KES 1.50"
+              }
+          ]
+      }
+  }
 
   invalid_api = AfricasTalkingGateway.new(invalid_username, invalid_api_key)
   valid_api = AfricasTalkingGateway.new(valid_username, valid_api_key)
@@ -27,14 +40,14 @@ describe "Africas Talking Gateway Api" do
   end
 
   it "should send sms messages when correct credentials and criteria are set" do
-    lambda { valid_api.send_message("+254705866564","Hello world!") }.should_not raise_error
+    lambda { valid_api.send_message("+2547771234567,+2547771234568,+2547771234569","Hello world!") }.should_not raise_error
   end
 
-  it "should correctly encode the request parameters" do
-    recipients = "+254705866564,+254706349037,+254727550098"
-    msg = "Hello World!"
-
-    body_str = invalid_api._encode_body(recipients,msg)
-    body_str.should eq("username=invalid+username&to=%2B254705866564%2C%2B254706349037%2C%2B254727550098&message=Hello+World%21")
+  it "should correctly parse the json response to the send method" do
+    resp = MessageStatusReport.new(send_response.to_json)
+    resp.total_cost.should eq(1.50)
+    resp.number_successful.should eq(1)
+    resp.total_number.should eq(1)
+    resp.status_reports.length.should eq(1)
   end
 end
