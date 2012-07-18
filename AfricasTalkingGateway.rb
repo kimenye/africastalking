@@ -11,10 +11,11 @@ end
 class SMSMessage
   attr_accessor :id, :text, :from, :date
 
-  def initialize(m_id, m_text,m_from,m_date)
+  def initialize(m_id, m_text,m_from, m_to ,m_date)
     @id = m_id
     @text = m_text
     @from = m_from
+    @to = m_to
     @date = m_date
   end
 end
@@ -93,7 +94,7 @@ class AfricasTalkingGateway
     raise AfricasTalkingGatewayUnexpectedError "Data is nil for some unexpected reason" if response_code != 200 or data.nil?
 
     messages = JSON.parse(data)["SMSMessageData"]["Messages"].collect { |msg|
-      SMSMessage.new msg["id"], msg["text"], msg["to"], msg["date"]
+      SMSMessage.new msg["id"], msg["text"], msg["from"] , msg["to"], msg["date"]
     }
   end
 end
