@@ -70,7 +70,10 @@ class AfricasTalkingGateway
       curl.headers['apiKey'] = @api_key
       curl.verbose = true
 
-      curl.on_body { |body| data = body }
+      curl.on_body { |body|
+        data = body
+        body.to_s.length
+      }
       curl.on_complete { |resp| response_code = resp.response_code }
     end
 
@@ -86,7 +89,10 @@ class AfricasTalkingGateway
       curl.headers['Accept'] = ACCEPT_TYPE
       curl.headers['apiKey'] = @api_key
       curl.verbose = false
-      curl.on_body { |body| data = body }
+      curl.on_body { |body|
+        data = body
+        body.to_s.length
+      }
       curl.on_complete { |resp| response_code = resp.response_code }
     end
 
